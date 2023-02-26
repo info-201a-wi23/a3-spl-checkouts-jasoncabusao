@@ -1,86 +1,78 @@
 ---
 title: "A3: SPL Library Checkouts"
+author:
+- name: Jason Cabusao
+date: February 24, 2023
 output: html_document
 ---
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+One of my favorite book series as a kid was the Diary of a Wimpy Kid series by Jeff Kinney. As a homage to his works, I will be analyzing his checkouts at the Seattle Public Library. Using the Seattle Public Library dataset containing titles with over 10 checkouts that dates back to 2017, I was able to analyze his popularity among users, the popularity of each media type of his works, and what works of his are most popular. I chose to analyze his popularity by comparing his checkouts to a newly, viral author named Colleen Hoover. I also analyzed which of Kinney's media is most popular by comparing the checkout numbers of each media type (ebook, book, etc.). Lastly, I found what his top 10 most popular works are through the comparison of checkout numbers.
 
-### Summary Information
+### Summary Statistics
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+By calculating summary statistics on Jeff Kinney's checkouts at the Seattle Public Library, I was able to find information that helped explain and provide context to patterns that surfaced. Kinney's most popular title at the Seattle Public Library is *The Getaway*, the 12th book in the Diary of a Wimpy Kid series. Kinney's most popular media/material type are physical books. From 2017 to now, Kinney's total physical book checkout count is 35,069. The month when Kinney had his highest checkout count was January of 2021; he had 1,866 checkouts that month. Beginning in 2017, Kinney had 7,041 annual checkouts. Kinney's checkouts in 2018 grew to 10,560 annual checkouts. Unfortunately, Kinney experienced a decrease in annual checkouts in 2019, totaling to 9,737. In 2020, Kinney's annual checkouts dipped to a new low of 6,378. In 2021, Kinney experienced a rise amounting to 16,063 checkout's. Then, in 2022, Kinney's yearly checkout's hit a new high of 18,034. With only a month of tracking in 2023, Kinney already has 1,655 checkout's secured. The overall count of Kinney's checkouts from 2017 to now is 69,468 checkout's.
 
 ### The Dataset
 
-- Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
+Who collected/published the data? 
 
+* From October 1, 2016 to present, the source of the checkout data is the Horizon ILS. However, the data goes back all the way to 2005 due to artist, George Legrady, who has been keeping track of checkout data since 2005. For historical physical item checkouts from April 2005 to September 30, 2016, the source of this data is the Legrady artwork data archives.
 
-### First Trends Over Time Chart
+What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+* The parameters of this data include: the form of the checkout (Physical or Digital), the type of the checkout (OverDrive, Horizon, Hoopla, etc.), the type of the material checked out (Ebook, Book, Music, Etc.), the year of the checkout (2017 to 2023), the month of the checkout (1 to 12), the amount of checkouts for this title (greater than 10 checkouts), the title of the checkout, the ISBN of the checkout, the creator of the checkout, the subject of the checkout, the publication of the checkout, and the publication year of the checkout.
 
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+How was the data collected or generated?  
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+* The Seattle Public Library dataset only counts the initial checkout. Renewals of physical items are not counted. Digital checkout data is generated by media vendors like Overdrive, hoopla, Freegal, and RBDigital. For physical checkout data, it was collected through George Legrady and Horizon ILS. 
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
+Why was the data collected?  
 
-Here's an example of how to run an R script inside an RMarkdown file:
+* Data collected prior to September 30, 2016 was collected because Legrady wanted to display information on TV screens in the Seattle Public Library. Legardy displayed checkout information that demonstrated checkout trends, checkout numbers, and top books of the week. Checkout data following September 30, 2016 was collected due to a broader open data initiative put into place by Barack Obama. Folks at the Seattle Public Library, like lead data analyst, David Christensen, wanted to share checkout circulation data.
 
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+What, if any, ethical questions do you need to consider when working with this data?
+
+* Questions: Do users know their checkout data is being collected? If users don't want their checkout data to be collected, are they able to opt out? 
+
+  These questions help protect the privacy of Seattle Public Library user's. Privacy is a big concern regarding this dataset since some users might feel uncomfortable having their checkout history documented. Additionally, some users might not even know their data is being collected. Once they find out their data was being collected, they might feel like their privacy was obstructed.
+
+What are possible limitations or problems with this data?   (at least 200 words)
+
+* One possible limitation with this data is how messy it is. Because this dataset used many different sources to calculate the number of checkouts for different items, the categorization and labels can all be different. For example, the names of authors. In the dataset, the author Jeff Kinney was represented in two ways: "Jeff Kinney" and "Kinney, Jeff." This can be hard to track down the many alterations of names to truly know the checkout numbers for certain authors. When coding and filtering for certain authors, we have to make sure were counting all of the works that certain author. 
+
+  Another possible limitation with this data is the different formatting of titles. Because there are so many media types, each media type has a different format when stored into the data set. For example, All of Jeff Kinney's physical books contain the phrase " / by Jeff Kinney." after the title of the book (The Getaway / by Jeff Kinney.). In contrast, Kinney's eBooks contains the title of the book, followed by "Diary of a Wimpy Kid Series," and what number the book is in the series (The Getaway: Diary of a Wimpy Kid Series, Book 12). Some of Kinney's titles also state whether they are abridged or not. This can make it hard for data analysts to sort by the authors titles if there's not a single, unison title.
+
+### Chart 1: Jeff Kinney's Popularity Over Time
+
+I included this chart to help create a visualization showing the popularity of Jeff Kinney over time. I used the author Colleen Hoover, who's seen a sudden surge of popularity, as a comparison. Since Hoover has only seen recent popularity, she serves as a good measure of what's popular at the time. Since Kinney has been popular for many years and is a common household author, he serves as a good, stable independent variable.
+
+For many years, Kinney's checkouts at the Seattle Pacific Library has been well above Hoover's, stabilizing around 600 to 1600 checkouts per month, while Hoover stabilized around 20-80 checkouts per month. It wasn't until June of 2021 where Hoover's monthly checkouts started increasing steadily. From the graph, we can see that the month dating October 2022 was when Hoover's checkouts finally surpassed Kinney's. Up til now, Hoover's monthly checkouts have been rising at a high speed and it doesn't show signs of stopping. The driving factor of Hoover's popularity and increased checkouts can be due to her exposure on the social media app, TikTok.
+
+One thing that's important to note is that from April 2020 to October 2020, Kinney's checkouts were at an all time low of about 200 checkout. This could be due to the COVID-19 outbreak and the protocols set by Washington State that limited public spaces, like the Seattle Public Library. Because of this, the Seattle Public Library building was likely closed, further stopping the checkout of physical books, leading to a decline in overall checkouts.
+
+``````{r, echo = FALSE, message = FALSE, warning = FALSE, code = readLines("chart1.R")}
 ```
 
-### Second Trends Over Time Chart
+### Chart 2: Jeff Kinney's Various Medias Over Time
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+The purpose of this chart is to help visualize how popular each type of Jeff Kinney media is at the Seattle Public Library. There are many types of media's at the Seattle Public Library that I wanted to see if there were any patterns that emerged in Jeff Kinney's. The main types of Jeff Kinney medias that are checked out are Audio books, Books, eBooks and Regprint. 
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+One noticeable pattern displayed in this chart is the sudden rise of eBook checkouts. Prior to March 2020, physical Jeff Kinney books dominated any other type of media. However, following March 2020, there was a sudden increase in interest for eBook's and a sharp decreas in interest for physical books. After March 2020, eBooks continued to replace physical books as eBook checkouts grew to new heights of about 1000 checkouts a month in May 2021, August 2022, and January 2023.
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+Diving deeper, after March 2020, there were no physical Jeff Kinney book checkouts at the Seattle Public Library for 6 months, until September of 2020 where there were 107 checkouts. One of the main reason for this absence of  physical book checkouts is the COVID-19 pandemic and it's protocols that restricted public facilities, like the Seattle Public Library. It was likely that the Seattle Public Library had to shut its doors to the public to limit the spread of COVID-19. Because of this, folks aren't able to checkout physical books and were likely inclined to checkoout eBooks to substitute physical books. This signifies that eBooks serve as a substitute good to physical books.
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
+Unfortunately, physical books weren't able to bounceback to match its pre-pandemic checkout numbers. However, in June 2021, it saw a slight increase in checkouts. In September of 2021, Jeff Kinney physical book checkouts reached a new high of 467 checkouts since the pandemic. Before the pandemic, physical book checkouts ranged from 670 to 930.
 
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+``````{r, echo = FALSE, message = FALSE, warning = FALSE, code = readLines("chart2_example.R")}
 ```
 
-### Your Choice
+### Chart 3: Jeff Kinney's Most Checked Out Titles
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
+This stacked bar chart was included to demonstrate Kinney's most popular checkouts at the Seattle Public Library. I chose to utilize a stacked bar chart to easily visualize which title had more checkouts. It makes is easier to determine which is most popular. Kinney has many works to checkout from, so, I wanted to determine which are favorites among folks. Displayed below is 10 of Kinney's books that have been checked out the most. 
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
+From the chart, it is apparent that *The Getaway* is Kinney's most popular book to be checked out. In second place is *Double Down*, and third is *The Ugly Truth*. One trend that can be seen is how close in checkouts Kinney's top 6-8 books are. Kinney's books — *The Last Straw*, *Cabin Fever*, and *Hard Luck* — are all within 4 checkout counts. Additionally, Kinney's 4th and 5th most popular checkouts — *Dog Days* and *Rodrick Rules* — are within 1 checkout counts of each other. This could signify that those titles are all compliments of each other. This means that if a person checks out one title, they are more inclined to also checkout the other titles.
 
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+``````{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart3.R")}
 ```
-
-
