@@ -52,8 +52,9 @@ For many years, Kinney's checkouts at the Seattle Pacific Library has been well 
 
 One thing that's important to note is that from April 2020 to October 2020, Kinney's checkouts were at an all time low of about 200 checkout. This could be due to the COVID-19 outbreak and the protocols set by Washington State that limited public spaces, like the Seattle Public Library. Because of this, the Seattle Public Library building was likely closed, further stopping the checkout of physical books, leading to a decline in overall checkouts.
 
+
 ``````{r, echo = FALSE, message = FALSE, warning = FALSE, code = readLines("chart1.R")}
-```
+``````
 
 ### Chart 2: Jeff Kinney's Various Medias Over Time
 
@@ -65,8 +66,9 @@ Diving deeper, after March 2020, there were no physical Jeff Kinney book checkou
 
 Unfortunately, physical books weren't able to bounceback to match its pre-pandemic checkout numbers. However, in June 2021, it saw a slight increase in checkouts. In September of 2021, Jeff Kinney physical book checkouts reached a new high of 467 checkouts since the pandemic. Before the pandemic, physical book checkouts ranged from 670 to 930.
 
-``````{r, echo = FALSE, message = FALSE, warning = FALSE, code = readLines("chart2_example.R")}
-```
+``````{r, echo = FALSE, message = FALSE, warning = FALSE, code = readLines("chart2.R")}
+``````
+
 
 ### Chart 3: Jeff Kinney's Most Checked Out Titles
 
@@ -75,4 +77,4 @@ This stacked bar chart was included to demonstrate Kinney's most popular checkou
 From the chart, it is apparent that *The Getaway* is Kinney's most popular book to be checked out. In second place is *Double Down*, and third is *The Ugly Truth*. One trend that can be seen is how close in checkouts Kinney's top 6-8 books are. Kinney's books — *The Last Straw*, *Cabin Fever*, and *Hard Luck* — are all within 4 checkout counts. Additionally, Kinney's 4th and 5th most popular checkouts — *Dog Days* and *Rodrick Rules* — are within 1 checkout counts of each other. This could signify that those titles are all compliments of each other. This means that if a person checks out one title, they are more inclined to also checkout the other titles.
 
 ``````{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart3.R")}
-```
+``````
