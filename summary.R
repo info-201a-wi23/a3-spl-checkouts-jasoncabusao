@@ -1,16 +1,3 @@
-# Quick find summary statistics
-kinney_pop_title
-kinney_pop_media
-kinney_books_checkouts
-kinney_highest_checkout_month
-kinney_highest_checkout_month_count
-kinney_2023_checkouts
-kinney_2022_checkouts
-kinney_2021_checkouts
-kinney_2020_checkouts
-kinney_2019_checkouts
-kinney_total_checkouts
-
 library(dplyr)
 
 # Create the necessary df's to compute summary statistics
@@ -120,3 +107,17 @@ kinney_2017_checkouts <- yearly_kinney_checkouts %>%
 
 ### How many total checkout did Jeff Kineey have from 2017 to now?
 kinney_total_checkouts <- sum(new_kinney_df$Checkouts)
+
+# Quick find summary statistics
+kinney_pop_title
+kinney_pop_media
+kinney_books_checkouts
+kinney_highest_checkout_month
+kinney_highest_checkout_month_count
+kinney_2023_checkouts
+kinney_2022_checkouts
+kinney_2021_checkouts
+kinney_2020_checkouts
+kinney_2019_checkouts
+kinney_total_checkouts
+

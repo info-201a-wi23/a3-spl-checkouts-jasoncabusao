@@ -12,7 +12,121 @@ One of my favorite book series as a kid was the Diary of a Wimpy Kid series by J
 
 ### Summary Statistics
 
-By calculating summary statistics on Jeff Kinney's checkouts at the Seattle Public Library, I was able to find information that helped explain and provide context to patterns that surfaced. Kinney's most popular title at the Seattle Public Library is *The Getaway*, the 12th book in the Diary of a Wimpy Kid series. Kinney's most popular media/material type are physical books. From 2017 to now, Kinney's total physical book checkout count is 35,069. The month when Kinney had his highest checkout count was January of 2021; he had 1,866 checkouts that month. Beginning in 2017, Kinney had 7,041 annual checkouts. Kinney's checkouts in 2018 grew to 10,560 annual checkouts. Unfortunately, Kinney experienced a decrease in annual checkouts in 2019, totaling to 9,737. In 2020, Kinney's annual checkouts dipped to a new low of 6,378. In 2021, Kinney experienced a rise amounting to 16,063 checkout's. Then, in 2022, Kinney's yearly checkout's hit a new high of 18,034. With only a month of tracking in 2023, Kinney already has 1,655 checkout's secured. The overall count of Kinney's checkouts from 2017 to now is 69,468 checkout's.
+``````{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library('stringr')
+library(tidyr)
+
+# Create the necessary df's to compute summary statistics
+## Create a df of medias that have over 10 checkouts over from 2017 to now
+spl_df <- read.csv("~/Downloads/2017-2023-10-Checkouts-SPL-Data.csv", stringsAsFactors = FALSE)
+
+## Create a dataframe with just Jeff Kinney  checkouts
+kinney_df <- spl_df %>%
+  filter(Creator %in% c("Jeff Kinney", "Kinney, Jeff"))
+
+## Creat a column called `FullName` that combines all versions of their names into one recognizable name
+kinney_df <- kinney_df %>% 
+  mutate(FullName = ifelse(str_detect(Creator, "Kinney"), "Jeff Kinney"))
+
+## Add a column called `date` that combines CheckoutYear and Checkout Month
+kinney_df <- kinney_df %>%  
+  mutate(date = paste0(CheckoutYear, "-", CheckoutMonth, "-01"))
+
+## Format this new column `Date` to As.Date
+kinney_df$date <- as.Date(kinney_df$date, format = "%Y-%m-%d")
+
+## Create a df that only includes necessary columns `FullName, Title, MaterialType, Checkouts, CheckoutYear, CheckoutMonth, date`
+new_kinney_df <- kinney_df %>% 
+  select(FullName, Title, MaterialType, Checkouts, CheckoutYear, CheckoutMonth, date)
+
+# Clean up the Title column so it only shows the book title
+new_kinney_df$Title <- gsub(" / by Jeff Kinney.", "", new_kinney_df$Title)
+new_kinney_df$Title <- gsub("\\(.*", "", new_kinney_df$Title)
+
+
+
+# Calculate the necessary summary statistics
+### What is Jeff Kinney's most popular checkout?
+kinney_pop_title <- new_kinney_df %>% 
+  group_by(Title) %>% 
+  summarise(title_checkouts = sum(Checkouts)) %>% 
+  filter(title_checkouts == max(title_checkouts)) %>% 
+  pull(Title)
+
+### What is Jeff Kinney's most popular media type?
+kinney_pop_media <- new_kinney_df %>% 
+  group_by(MaterialType) %>% 
+  summarise(media_checkouts = sum(Checkouts)) %>% 
+  filter(media_checkouts == max(media_checkouts)) %>% 
+  pull(MaterialType)
+
+### How many checkouts did Jeff Kinney's books have overall
+kinney_books_checkouts <- new_kinney_df %>% 
+  group_by(MaterialType) %>% 
+  summarise(media_checkouts = sum(Checkouts)) %>% 
+  filter(media_checkouts == max(media_checkouts)) %>% 
+  pull(media_checkouts)
+
+## Create a datafram showing Jeff Kinney's checkouts each year
+yearly_kinney_checkouts <- kinney_2023_checkouts <- new_kinney_df %>% 
+  group_by(date = as.integer(format(date, '%Y'))) %>% 
+  summarise(yearly_checkouts = sum(Checkouts))
+
+### What month had Jeff Kinney highest checkout number
+kinney_highest_checkout_month <- new_kinney_df %>% 
+  group_by(date) %>% 
+  summarise(monthly_checkouts = sum(Checkouts)) %>% 
+  filter(monthly_checkouts == max(monthly_checkouts)) %>% 
+  pull(date)
+
+### How many checkouts did Jeff Kinney have in the month where he his highest checkouts.
+kinney_highest_checkout_month_count <- new_kinney_df %>% 
+  group_by(date) %>% 
+  summarise(monthly_checkouts = sum(Checkouts)) %>% 
+  filter(monthly_checkouts == max(monthly_checkouts)) %>% 
+  pull(monthly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2023?
+kinney_2023_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2023) %>% 
+  pull(yearly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2022?
+kinney_2022_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2022) %>% 
+  pull(yearly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2021?
+kinney_2021_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2021) %>% 
+  pull(yearly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2020?
+kinney_2020_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2020) %>% 
+  pull(yearly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2019?
+kinney_2019_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2019) %>% 
+  pull(yearly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2018?
+kinney_2018_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2018) %>% 
+  pull(yearly_checkouts)
+
+### How many checkouts did Jeff Kinney have in 2017?
+kinney_2017_checkouts <- yearly_kinney_checkouts %>% 
+  filter(date == 2017) %>% 
+  pull(yearly_checkouts)
+
+### How many total checkout did Jeff Kineey have from 2017 to now?
+kinney_total_checkouts <- sum(new_kinney_df$Checkouts)
+``````
+
+By calculating summary statistics on Jeff Kinney's checkouts at the Seattle Public Library, I was able to find information that helped explain and provide context to patterns that surfaced. Kinney's most popular title at the Seattle Public Library is `r kinney_pop_title`, the 12th book in the Diary of a Wimpy Kid series. Kinney's most popular media/material type are `r kinney_pop_media`'s. From 2017 to now, Kinney's total physical book checkout count is `r kinney_books_checkouts`. The date of when Kinney had his highest checkout count was `r kinney_highest_checkout_month`; he had `r kinney_highest_checkout_month_count` checkouts that month. Beginning in 2017, Kinney had `r kinney_2017_checkouts` annual checkouts. Kinney's checkouts in 2018 grew to `r kinney_2018_checkouts` annual checkouts. Unfortunately, Kinney experienced a decrease in annual checkouts in 2019, totaling to `r kinney_2019_checkouts`. In 2020, Kinney's annual checkouts dipped to a new low of `r kinney_2020_checkouts`. In 2021, Kinney experienced a rise amounting to `r kinney_2021_checkouts` checkout's. Then, in 2022, Kinney's yearly checkout's hit a new high of `r kinney_2022_checkouts`. With only a month of tracking in 2023, Kinney already has `r kinney_2023_checkouts` checkout's secured. The overall count of Kinney's checkouts from 2017 to now is `r kinney_total_checkouts` checkout's.
 
 ### The Dataset
 
